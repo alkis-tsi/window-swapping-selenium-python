@@ -1,6 +1,0 @@
-#!/bin/bash
-echo "------ Downloading VPN Profile ------"
-python vpn_profiles.py
-
-echo "------ Running VPN Client ------"
-cd ~/Downloads; sudo openvpn vpn-* &
