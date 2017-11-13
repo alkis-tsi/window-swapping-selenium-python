@@ -3,6 +3,7 @@ Selenium Python - Swap Between Windows and Download Files
 
 ## Requirements
 `selenium: 3.7.0
+
 python: 2.7.12`
 
 ## Instructions
