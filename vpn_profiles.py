@@ -37,7 +37,7 @@ def vpn_access(credentials):
     profile.set_preference('browser.download.dir', '~/Downloads')
     profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/plain')
     driver = webdriver.Firefox(profile)
-    driver.get("https://access-acp.digital.homeoffice.gov.uk/v1/profiles")
+    driver.get("<place_the_url_here>")
     return driver
 
 
