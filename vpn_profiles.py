@@ -13,9 +13,9 @@ import glob
 
 
 # Function Parsing Login Credentials From Locally Stored File
-def credentials_parse():
+def config_parse():
     parser = SafeConfigParser()
-    candidates = 'credentials.ini'
+    candidates = 'config.ini'
     files_present = parser.read(candidates)
     files_missing = set(candidates) - set(files_present)
 
@@ -26,18 +26,19 @@ def credentials_parse():
 
     username = parser.get('vpn_profile','username')
     password = parser.get('vpn_profile','password')
-    credentials = {'username': username, 'password': password}
-    return credentials
+    url = parser.get('vpn_profile', 'url')
+    config = {'username': username, 'password': password, 'url': url}
+    return config
 
 # Make the Firefox Browser to Automatically Save Files
-def vpn_access(credentials):
+def vpn_access(url):
     profile = webdriver.FirefoxProfile()
     profile.set_preference('browser.download.folderList',2)
     profile.set_preference('browser.download.manager.showWhenStarting', False)
     profile.set_preference('browser.download.dir', '~/Downloads')
     profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/plain')
     driver = webdriver.Firefox(profile)
-    driver.get("<place_the_url_here>")
+    driver.get(url)
     return driver
 
 
@@ -49,11 +50,11 @@ def download_profile(driver):
     window_before = driver.window_handles[0]
     time.sleep(2)
     # Office 365 LoginPage - Passing the Credentials
-    loginusername = driver.find_element_by_id('cred_userid_inputtext').send_keys(credentials['username'])
-    loginuserpass = driver.find_element_by_id('cred_password_inputtext').send_keys(credentials['password'])
+    loginusername = driver.find_element_by_id('cred_userid_inputtext').send_keys(config['username'])
+    loginuserpass = driver.find_element_by_id('cred_password_inputtext').send_keys(config['password'])
     login = driver.find_element_by_id('cred_sign_in_button')
     # Needed to make Python wait for 2 seconds due to the page refresh once the credentials are typed in the form
-    time.sleep(2)
+    time.sleep(4)
     login.click()
     time.sleep(2)
     # Download the profile
@@ -61,7 +62,7 @@ def download_profile(driver):
     vpntoken.click()
     driver.close()
 
-# Executing All Functions
-credentials=credentials_parse()
-driver=vpn_access(credentials)
-download_profile(driver)
+if __name__ == '__main__':
+  config=config_parse()
+  driver=vpn_access(config['url'])
+  download_profile(driver)
