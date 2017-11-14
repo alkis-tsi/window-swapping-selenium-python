@@ -1,4 +1,5 @@
 #!/bin/bash
+rm ~/Downloads/*.ovpn
 echo "------ Downloading VPN Profile ------"
 python vpn_profiles.py
 

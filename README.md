@@ -2,8 +2,9 @@
 Selenium Python - Swap Between Windows and Download Files
 
 ## Requirements
-- selenium: 3.7.0
-- python: 2.7.12
+
+Install the packages in requirements.txt: `pip install -r requirements.txt`
+Install geckodriver for your platform https://github.com/mozilla/geckodriver/releases
 
 ## Instructions
 Create a directory to your local machine and clone the repository. The files have to be under the same tree, otherwise you will have to make manual changes to locate the files. There are three files:
